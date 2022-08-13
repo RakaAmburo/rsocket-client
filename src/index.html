@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RSocket Demo</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container mt-3">
+        <h1>RSocket Demo</h1>
+        <div class="row">
+            <div class="col">
+                <button id="startFlow">Start Flow</button>
+                <button id="startLogs">Start Logs</button>
+                <input type="text" id="prdn" value="10">
+                <button id="prdp">+5</button>
+                <button id="prdm">-5</button>
+                <button id="btn">Append text</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5" style="width: 800px;">
+        <div class="row">
+            <div class="col-sm-12" style="text-align: center">
+                Items per second
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm">
+                Gateway:
+            </div>
+            <div class="col-sm">
+                Core:
+            </div>
+            <div class="col-sm">
+                Providers:
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <ul id="gateway"></ul>
+            </div>
+            <div class="col-sm">
+                <ul id="core"></ul>
+            </div>
+            <div class="col-sm">
+                <ul id="provider"></ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-3" style="width: 800px;">
+        <div class="row">
+            Gateway
+            <textarea id="gatewayLog" name="w3review" rows="3"
+                cols="30"></textarea>
+        </div>
+        <div class="row mt-2">
+            Core
+            <textarea id="coreLog" name="w3review" rows="3"
+                cols="30"></textarea>
+        </div>
+        <div class="row mt-2">
+            Providers
+            <textarea id="providerLog" name="w3review" rows="3"
+                cols="30"></textarea>
+        </div>
+    </div>
+
+
+
+
+    <script crossorigin="anonymous">
+        function startFlow() {
+            const Http = new XMLHttpRequest();
+            const url = 'http://localhost:8080/start';
+            Http.open("GET", url);
+            Http.setRequestHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With");
+            Http.setRequestHeader("Access-Control-Allow-Methods", "GET, POST");
+            Http.setRequestHeader("Access-Control-Max-Age", "1728000");
+            Http.setRequestHeader("Access-Control-Allow-Origin", "http://localhost:8081");
+            Http.send();
+        }
+
+        const btn = document.getElementById('btn');
+        var counter = 0;
+
+        // ✅ Append text on button click
+        btn.addEventListener('click', function handleClick() {
+            appendLog(document.getElementById('w3review1'), "logeando: "+ counter++);
+        });
+
+        function appendLog(textArea, log) {
+            let lines = textArea.value.split('\n');
+            lines.push(log);
+            if (lines.length > 5) {
+                lines.shift();
+            }
+            textArea.value = lines.join('\n')
+        }
+
+    </script>
+</body>
+
+</html>
