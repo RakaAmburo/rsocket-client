@@ -15,27 +15,23 @@
 </head>
 
 <body>
-    <div class="container mt-3">
+    <div class="container mt-3" style="text-align: center">
         <h1>RSocket Demo</h1>
         <div class="row">
             <div class="col">
-                <button id="startFlow">Start Flow</button>
-                <button id="startLogs">Start Logs</button>
-                <input type="text" id="prdn" value="10">
-                <button id="prdp">+5</button>
-                <button id="prdm">-5</button>
-                <button id="btn">Append text</button>
+                
             </div>
         </div>
     </div>
 
-    <div class="container mt-5" style="width: 800px;">
+    <div class="container mt-3" style="width: 800px; border: solid 1px #888;;">
         <div class="row">
-            <div class="col-sm-12" style="text-align: center">
-                Items per second
+            <div class="col-sm-12" style="text-align: center; margin-top: 5px;">
+                <strong>Items per second (Rate):</strong>
+                <button id="startLogs" class="btn btn-secondary btn-sm">Start Logging</button>
             </div>
         </div>
-        <div class="row mt-2">
+        <div class="row" style="text-align: center">
             <div class="col-sm">
                 Gateway:
             </div>
@@ -46,7 +42,7 @@
                 Providers:
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="text-align: center">
             <div class="col-sm">
                 <ul id="gateway"></ul>
             </div>
@@ -61,19 +57,47 @@
 
     <div class="container mt-3" style="width: 800px;">
         <div class="row">
-            Gateway
-            <textarea id="gatewayLog" name="w3review" rows="3"
-                cols="30"></textarea>
+            <div class="col-sm">
+                <textarea id="gatewayLog" name="w3review" rows="4" cols="60"></textarea>
+            </div>
+            <div class="col-sm" style="text-align: center; border: solid 1px #888;">
+                <div class="row" style="text-align: center">
+                    <ul>GATEWAY</ul>
+                </div>
+                <div class="row">
+                    <div><button id="startFlow" class="btn btn-secondary btn-sm">Start users input</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2" >
+            <div class="col-sm">
+                <textarea id="coreLog" name="w3review" rows="4" cols="60"></textarea>
+            </div>
+            <div class="col-sm" style="text-align: center ; border: solid 1px #888;">
+                CORE
+            </div>
         </div>
         <div class="row mt-2">
-            Core
-            <textarea id="coreLog" name="w3review" rows="3"
-                cols="30"></textarea>
-        </div>
-        <div class="row mt-2">
-            Providers
-            <textarea id="providerLog" name="w3review" rows="3"
-                cols="30"></textarea>
+            <div class="col-sm">
+                <textarea id="providerLog" name="w3review" rows="4" cols="60"></textarea>
+            </div>
+            <div class="col-sm" style="text-align: center; border: solid 1px #888; ">
+                <div class="row">
+                    <ul>PROVIDERS</ul>
+                </div>
+                <div class="row  mt-2" style="text-align: center">
+                    <div class="input-group mb-3">
+                        &nbsp; &nbsp;&nbsp;Delay: &nbsp;
+                        <input type="text" id="prdn" value="10" size="1" readonly style="width: 50px;">
+                        &nbsp;&nbsp;
+                        <div class="input-group-append">
+                            <button id="prdp" class="btn btn-secondary btn-sm" style="width: 50px;">+5</button>
+                            &nbsp;
+                            <button id="prdm" class="btn btn-secondary btn-sm" style="width: 50px;">-5</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -92,14 +116,7 @@
             Http.send();
         }
 
-        const btn = document.getElementById('btn');
         var counter = 0;
-
-        // ✅ Append text on button click
-        btn.addEventListener('click', function handleClick() {
-            appendLog(document.getElementById('w3review1'), "logeando: "+ counter++);
-        });
-
         function appendLog(textArea, log) {
             let lines = textArea.value.split('\n');
             lines.push(log);

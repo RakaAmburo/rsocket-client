@@ -86,6 +86,7 @@ client.connect().then(sock => {
         document.getElementById('prdn').value = providerRateDelay;
     })
     document.getElementById('prdm').addEventListener('click', ({srcElement}) => {
+        if (document.getElementById('prdn').value == '10') return;
         providerRateDelay-=5
         sock.fireAndForget({
             data: providerRateDelay,
